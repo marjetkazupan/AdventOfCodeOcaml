@@ -12,5 +12,19 @@ module Solver : Solver = struct
     in
     naloga1_aux 0 0 lines
 
-  let naloga2 data odgovor_prve_naloge = ""
+  let naloga2 data odgovor_prve_naloge =
+    let lines = List.lines data in
+    let rec naloga2_aux acc1_lst acc2 = function
+      | [] -> (
+          let lst =
+            List.sort (fun a_int b_int -> -compare a_int b_int) acc1_lst
+          in
+          match lst with
+          | x :: y :: z :: other -> string_of_int (x + y + z)
+          | _ -> failwith "ni škratov" )
+      | x :: xs ->
+          if x = "" then naloga2_aux (acc2 :: acc1_lst) 0 xs
+          else naloga2_aux acc1_lst (acc2 + int_of_string x) xs
+    in
+    naloga2_aux [] 0 lines
 end
