@@ -31,7 +31,7 @@ let choose_solver year day : (module Solver) =
       | "23" -> (module Day23.Solver)
       | "24" -> (module Day24.Solver)
       | "25" -> (module Day25.Solver)
-      | _ -> failwith "Ni še rešeno")
+      | _ -> failwith "Ni še rešeno" )
   | "2021" -> (
       let open Solvers2021 in
       match day with
@@ -49,12 +49,13 @@ let choose_solver year day : (module Solver) =
       | "11" -> (module Day11.Solver)
       | "12" -> (module Day12.Solver)
       | "13" -> (module Day13.Solver)
-      | _ -> failwith "Ni še rešeno")
+      | _ -> failwith "Ni še rešeno" )
   | "2022" -> (
       let open Solvers2022 in
       match day with
       | "0" -> (module Day0.Solver)
-      | _ -> failwith "Ni še rešeno")
+      | "1" -> (module Day1.Solver)
+      | _ -> failwith "Ni še rešeno" )
   | _ -> failwith "Neveljavno leto"
 
 let main () =

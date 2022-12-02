@@ -4,3 +4,8 @@
  (promote
   (until-clean)
   (into ../..)))
+
+(env
+ (dev
+  (flags
+   (:standard -warn-error -A))))
