@@ -2,24 +2,18 @@ open Solvers.Signature
 open Utils.List_utils
 
 module Solver : Solver = struct
+  let shape_to_score = function
+    | "X" | "A" -> 1
+    | "Y" | "B" -> 2
+    | "Z" | "C" -> 3
+    | _ -> failwith "shape_to_score narobe"
+
   let naloga1 data =
     let lines = List.lines data in
-    let shape_to_score = function
-      | "X" -> 1
-      | "Y" -> 2
-      | "Z" -> 3
-      | _ -> failwith "shape_to_score narobe"
-    in
     let shape_to_win = function
-      | "A", "X" -> 3
-      | "B", "Y" -> 3
-      | "C", "Z" -> 3
-      | "A", "Y" -> 6
-      | "B", "Z" -> 6
-      | "C", "X" -> 6
-      | "A", "Z" -> 0
-      | "B", "X" -> 0
-      | "C", "Y" -> 0
+      | "A", "X" | "B", "Y" | "C", "Z" -> 3
+      | "A", "Y" | "B", "Z" | "C", "X" -> 6
+      | "A", "Z" | "B", "X" | "C", "Y" -> 0
       | _ -> failwith "shape_to_win narobe"
     in
     let rec naloga1_aux acc = function
@@ -33,29 +27,17 @@ module Solver : Solver = struct
     in
     naloga1_aux 0 lines
 
-  let naloga2 data odgovor_prve_naloge =
+  let naloga2 data _part1 =
     let shape_to_win = function
       | "A" -> "B"
       | "B" -> "C"
       | "C" -> "A"
       | _ -> failwith "narobe"
     in
-    let shape_to_lose = function
-      | "A" -> "C"
-      | "B" -> "A"
-      | "C" -> "B"
-      | _ -> failwith "narobe"
-    in
     let shape x = function
-      | "X" -> shape_to_lose x
+      | "X" -> shape_to_win (shape_to_win x)
       | "Y" -> x
       | "Z" -> shape_to_win x
-      | _ -> failwith "narobe"
-    in
-    let score = function
-      | "A" -> 1
-      | "B" -> 2
-      | "C" -> 3
       | _ -> failwith "narobe"
     in
     let ending_score = function
@@ -69,7 +51,7 @@ module Solver : Solver = struct
       | x :: xs ->
           naloga2_aux
             ( acc
-            + score (shape (String.sub x 0 1) (String.sub x 2 1))
+            + shape_to_score (shape (String.sub x 0 1) (String.sub x 2 1))
             + ending_score (String.sub x 2 1) )
             xs
     in

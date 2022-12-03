@@ -12,7 +12,7 @@ module Solver : Solver = struct
     in
     naloga1_aux 0 0 lines
 
-  let naloga2 data odgovor_prve_naloge =
+  let naloga2 data _part1 =
     let lines = List.lines data in
     let rec naloga2_aux acc1_lst acc2 = function
       | [] -> (
