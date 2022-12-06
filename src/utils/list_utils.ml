@@ -154,4 +154,11 @@ module List = struct
         done
       done;
       mt
+
+  let rec print_string_list = function
+    | [] -> ()
+    | e :: l ->
+        print_string e;
+        print_string "\n";
+        print_string_list l
 end
