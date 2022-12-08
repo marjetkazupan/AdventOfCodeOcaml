@@ -6,4 +6,6 @@ module String = struct
     if l_p > String.length hay then false else String.sub hay 0 l_p = prefix
 
   let rec repeat s = function n when n <= 0 -> "" | n -> s ^ repeat s (n - 1)
+
+  let sub_from s i = String.sub s i (String.length s - i)
 end
