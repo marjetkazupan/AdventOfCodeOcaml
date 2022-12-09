@@ -161,4 +161,13 @@ module List = struct
         print_string e;
         print_string "\n";
         print_string_list l
+
+  let delete_duplicate lst =
+    let rec delete_duplicate_aux acc = function
+      | [] -> acc
+      | x :: xs ->
+          if List.mem x xs then delete_duplicate_aux acc xs
+          else delete_duplicate_aux (x :: acc) xs
+    in
+    delete_duplicate_aux [] lst
 end
